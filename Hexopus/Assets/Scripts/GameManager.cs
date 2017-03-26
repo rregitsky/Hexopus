@@ -10,12 +10,7 @@ public class GameManager : MonoBehaviour {
         // Initialize map
         // Procedurally generate?
         // Partial init?
-        List<MapPieceObject> mapPieces = new List<MapPieceObject>();
-        mapPieces.Add(new MapPieceObject());
-        foreach(MapPieceObject mapPiece in mapPieces)
-        {
-            mapPiece.render();
-        }
+        createPath();
         // Initialize UI elements
         // Initialize entities	
 	}
@@ -27,4 +22,17 @@ public class GameManager : MonoBehaviour {
         // Move map position
             // Generate next portion of map?
 	}
+
+    private void createPath() {
+        PointPath path = new PointPath(Vector2.right, Vector2.up, .5f, 2f);
+        List<GameObject> objs = new List<GameObject>();
+        path.addPoint(new Vector2(-10f, -5f));
+        path.addRandomPoints(10);
+        foreach(Vector2 point in path.getPoints()) {
+            GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            obj.transform.position = point;
+            obj.transform.localScale = new Vector3(.1f, .1f, .1f);
+            objs.Add(obj);
+        }
+    }
 }

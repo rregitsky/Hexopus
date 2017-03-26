@@ -9,37 +9,11 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class MapPieceObject : IObject
+    class MapPieceObject : Object
     {
 
         private const float DefaultWidth = 1.5f;
         private const float DefaultAngle = 0;
-        /// <summary>
-        /// Width of the map piece wall
-        /// </summary>
-        public float width = 0;
-        /// <summary>
-        /// Angle of the wall in Radians
-        /// </summary>
-        public float angleRadians = 0;
-         /// <summary>
-         /// Angle of the wall in Degrees
-         /// </summary>
-        public float angleDegrees
-        {
-            get
-            {
-                return angleRadians * Mathf.Rad2Deg;
-            }
-            set
-            {
-                angleRadians = value;
-            }
-        }
-         /// <summary>
-         /// Position of the center of the map piece
-         /// </summary>
-        public Position position;
          /// <summary>
          /// Position of the head of the map piece. Head is the side closest to the end of the level.
          /// </summary>
@@ -108,14 +82,17 @@ namespace Assets.Scripts
         /// Set up the Game Object for this element
         /// </summary>
         /// <returns>This Object's Game Object</returns>
-        public GameObject render()
+        public override GameObject render()
         {
             this.gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.updateGameObject();
             return this.gameObject;
         }
-
-        public GameObject updateGameObject()
+        /// <summary>
+        /// Update the prpoerties of the game object for this element to match this object's properties.
+        /// </summary>
+        /// <returns></returns>
+        public override GameObject updateGameObject()
         {
             this.gameObject.transform.position = this.position.ToVector2();
             this.gameObject.transform.rotation = Quaternion.Euler(0, 0, this.angleDegrees);
